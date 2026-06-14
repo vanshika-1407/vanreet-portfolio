@@ -329,7 +329,7 @@ section{padding:6.5rem 2.8rem}
 /* ── ABOUT ── */
 .ab-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start;margin-top:.5rem}
 .ab-img{width:100%;aspect-ratio:3/4;border-radius:40px;overflow:hidden;position:relative;
-  background:linear-gradient(150deg,#F5D8C4,#E8C8A8,#D4B088)}
+  background:#D4B088}
 .ab-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(30,21,16,.5))}
 .ab-tag{position:absolute;bottom:2rem;left:2rem;right:2rem;
   background:rgba(255,252,248,.9);backdrop-filter:blur(12px);border-radius:16px;padding:1rem 1.2rem}
@@ -642,10 +642,13 @@ const SERVICES = [
 ];
 
 const PORTFOLIO = [
-  {cat:"Beauty",brand:"Glow Lab",title:"Morning Skincare Routine",bg1:"#F5D5C8",bg2:"#D8A898",lbl:"Concept Project"},
-  {cat:"Tech",brand:"NovaTech",title:"Wireless Earbuds Review",bg1:"#D4D4F4",bg2:"#9898D8",lbl:"Concept Project"},
+  {cat:"Beauty",brand:"Vaseline",title:"Vaseline Gluta-Hya",bg1:"#F5D5C8",bg2:"#D8A898",lbl:"Concept Project",thumbnail:"/thumbnail/vaseline.png",
+    link:"https://www.instagram.com/reel/DZaYkBhygTf/?igsh=MXAwbnNuZjNkd2gyNA=="},
+  {cat:"Beauty",brand:"Maybelline",title:"Teddy Tint Review",bg1:"#D4D4F4",bg2:"#9898D8",lbl:"Concept Project",thumbnail:"/thumbnail/teddy.png",
+    link:"https://www.instagram.com/reel/DZjdWazRUv3/?igsh=MXA4ZWZ0bHRlMDZlag=="},
+    {cat:"Beauty",brand:"Vaseline",title:"Vasleine Gluta-Hya Review",bg1:"#F0C0CC",bg2:"#D888A0",lbl:"Concept Project",thumbnail:"/thumbnail/vaselinee.png",
+    link:"https://www.instagram.com/reel/DZaYkBhygTf/?igsh=MXAwbnNuZjNkd2gyNA=="},
   {cat:"Lifestyle",brand:"Bloom & Co",title:"Aesthetic Morning Vlog",bg1:"#D4ECC8",bg2:"#8AC870",lbl:"Concept Project"},
-  {cat:"Beauty",brand:"Velvet Skin",title:"Dewy Foundation Review",bg1:"#F0C0CC",bg2:"#D888A0",lbl:"Brand Collab"},
   {cat:"Tech",brand:"SmartHome Pro",title:"Smart Lamp Unboxing",bg1:"#C8D8F0",bg2:"#80A8D8",lbl:"Concept Project"},
   {cat:"Lifestyle",brand:"Maison Vibes",title:"Aesthetic Desk Setup",bg1:"#F0E4C4",bg2:"#C8B870",lbl:"Concept Project"},
 ];
@@ -1012,9 +1015,12 @@ export default function App() {
             <div className="img-frame">
               <div className="img-inner">
                 <div className="img-bg" />
-                <div className="img-grid">
-                  {["ig1","ig2","ig3","ig4","ig5","ig6"].map(c => <div key={c} className={`ig ${c}`} />)}
-                </div>
+                <img
+  src="/about1.jpeg"
+  alt="Vanshika and Manpreet — Vanreet UGC Creator Duo"
+  style={{ width:"100%", height:"100%", objectFit:"cover",
+    objectPosition: "center 70%", display:"block", position:"absolute", inset:0 }}
+/>
                 <div className="img-overlay" />
               </div>
               <div className="img-badge">
@@ -1048,6 +1054,19 @@ export default function App() {
             <Reveal>
               <div>
                 <div className="ab-img">
+                  <img
+  src="/about2.jpeg"
+  alt="Vanreet"
+  style={{
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "center top",
+    zIndex: 0
+  }}
+/>
                   <div style={{position:"absolute",top:"14%",right:"12%",width:"55px",height:"55px",border:"1.5px solid rgba(255,255,255,.25)",borderRadius:"50%"}} />
                   <div style={{position:"absolute",top:"20%",right:"18%",width:"36px",height:"36px",border:"1px solid rgba(255,255,255,.15)",borderRadius:"50%"}} />
                   <div className="ab-ov" />
@@ -1057,6 +1076,7 @@ export default function App() {
                       <span style={{fontFamily:"'Yatra One',serif",color:"var(--ac)",marginRight:".4rem",fontSize:".9rem"}}>वनरीत</span>
                       UGC Creators · Beauty, Lifestyle &amp; Tech
                     </div>
+                    
                   </div>
                 </div>
                 <div className="ab-stats">
@@ -1097,12 +1117,12 @@ export default function App() {
                   <div className="duo-card">
                     <div className="dc-name">Vanshika</div>
                     <div className="dc-hi">वंशिका</div>
-                    <div className="dc-role">Beauty & Lifestyle specialist · Aesthetic eye · Trend-led editing</div>
+                    <div className="dc-role">Tech & Storytelling specialist · Strategy · Brand voice</div>
                   </div>
                   <div className="duo-card">
                     <div className="dc-name">Manpreet</div>
                     <div className="dc-hi">मनप्रीत</div>
-                    <div className="dc-role">Tech & Storytelling specialist · Strategy · Brand voice</div>
+                    <div className="dc-role">Beauty & Lifestyle specialist · Aesthetic eye · Trend-led editing</div>
                   </div>
                 </div>
               </Reveal>
@@ -1222,18 +1242,42 @@ export default function App() {
           <div className="pf-grid">
             {filtered.map((p,i) => (
               <Reveal key={p.title+i} delay={i*80}>
-                <div className="pf-item">
+                <a
+  href={p.link}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="pf-item"
+  style={{ textDecoration: "none" }}
+>
                   <div className="pf-th" style={{background:`linear-gradient(150deg,${p.bg1},${p.bg2})`}}>
-                    <div className="ph-wrap">
-                      <div className="ph-sc" style={{background:`linear-gradient(155deg,${p.bg1},${p.bg2})`}}>
-                        <div style={{flex:"0 0 56%",borderRadius:"6px",background:"rgba(255,255,255,.38)"}} />
-                        <div style={{height:"7px",borderRadius:"3px",width:"75%",background:"rgba(255,255,255,.55)"}} />
-                        <div style={{height:"5px",borderRadius:"3px",width:"55%",background:"rgba(255,255,255,.32)"}} />
-                        <div style={{display:"flex",gap:"4px",marginTop:"auto"}}>
-                          {[1,2,3].map(n => <div key={n} style={{flex:1,height:"24px",borderRadius:"5px",background:"rgba(255,255,255,.28)"}} />)}
-                        </div>
-                      </div>
-                    </div>
+                 <div className="ph-wrap">
+  <img
+    src={p.thumbnail}
+    
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "contain",
+background: "#F5D8CC",
+      borderRadius: "18px"
+    }}
+  />
+
+  <div
+    style={{
+      position: "absolute",
+      inset: 0,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontSize: "3rem",
+      color: "white",
+      textShadow: "0 4px 12px rgba(0,0,0,.4)"
+    }}
+  >
+    ▶
+  </div>
+</div>
                   </div>
                   <div className="pf-ov">
                     <div>
@@ -1242,7 +1286,7 @@ export default function App() {
                       <div className="pf-brand">for {p.brand}</div>
                     </div>
                   </div>
-                </div>
+                </a>
               </Reveal>
             ))}
           </div>
