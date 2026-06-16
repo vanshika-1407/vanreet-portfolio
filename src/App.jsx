@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import emailjs from "@emailjs/browser";
 // ─────────────────────────────────────────────────────────────────────────────
 // GLOBAL STYLES
 // ─────────────────────────────────────────────────────────────────────────────
@@ -478,8 +478,16 @@ section{padding:6.5rem 2.8rem}
 .ft .ck{color:#D4C4E8}
 
 /* ── SOCIAL ── */
-.sc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
-.sc-card{background:var(--wh);border-radius:24px;border:1px solid var(--bd);
+.sc-grid{display:flex;
+  justify-content:center;
+  margin-top:3rem;}
+.sc-card{background:var(--wh);
+  border-radius:24px;
+  border:1px solid var(--bd);
+  max-width:700px;
+  width:100%;
+  overflow:hidden;
+  transition:transform .3s,box-shadow .3s);
   overflow:hidden;transition:transform .3s,box-shadow .3s}
 .sc-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.07)}
 .sc-h{padding:1.2rem 1.5rem;display:flex;align-items:center;gap:.85rem;
@@ -646,11 +654,14 @@ const PORTFOLIO = [
     link:"https://www.instagram.com/reel/DZaYkBhygTf/?igsh=MXAwbnNuZjNkd2gyNA=="},
   {cat:"Beauty",brand:"Maybelline",title:"Teddy Tint Review",bg1:"#D4D4F4",bg2:"#9898D8",lbl:"Concept Project",thumbnail:"/thumbnail/teddy.png",
     link:"https://www.instagram.com/reel/DZjdWazRUv3/?igsh=MXA4ZWZ0bHRlMDZlag=="},
+    {cat:"Beauty",brand:"Maybelline",title:"Lipstick",bg1:"#F0C0CC",bg2:"#D888A0",lbl:"Concept Project",thumbnail:"/thumbnail/Maybelline.jpeg",
+    link:"https://www.instagram.com/reel/DZfDq7RS3sH/?igsh=MWl5aWhtd3BpbWtyeA=="},
+    {cat:"Lifestyle",brand:"Self",title:"Whats in My Bag",bg1:"#C8D8F0",bg2:"#80A8D8",lbl:"Concept Project",thumbnail:"/thumbnail/MiniMe.png",link:"https://www.instagram.com/reel/DZo-vQmxQGw/?igsh=MWRoeHF2b2ZrYzVrcw=="},
     {cat:"Beauty",brand:"Vaseline",title:"Vasleine Gluta-Hya Review",bg1:"#F0C0CC",bg2:"#D888A0",lbl:"Concept Project",thumbnail:"/thumbnail/vaselinee.png",
     link:"https://www.instagram.com/reel/DZaYkBhygTf/?igsh=MXAwbnNuZjNkd2gyNA=="},
-  {cat:"Lifestyle",brand:"Bloom & Co",title:"Aesthetic Morning Vlog",bg1:"#D4ECC8",bg2:"#8AC870",lbl:"Concept Project"},
-  {cat:"Tech",brand:"SmartHome Pro",title:"Smart Lamp Unboxing",bg1:"#C8D8F0",bg2:"#80A8D8",lbl:"Concept Project"},
-  {cat:"Lifestyle",brand:"Maison Vibes",title:"Aesthetic Desk Setup",bg1:"#F0E4C4",bg2:"#C8B870",lbl:"Concept Project"},
+  {cat:"Lifestyle",brand:"Self",title:"To fill it",bg1:"#D4ECC8",bg2:"#8AC870",lbl:"Concept Project",thumbnail:"/thumbnail/ToFill.png",
+    link:"https://www.instagram.com/reel/DZmWPZmRA4P/?igsh=MXY3YzBldmFtc2J2bQ=="},
+    
 ];
 
 const WHY = [
@@ -698,8 +709,12 @@ const FAQ_DATA = [
   {q:"Do you work with small brands and startups?",a:"Absolutely! We love working with passionate founders and growing brands. Our Starter package is specifically designed for early-stage brands and product launches."},
 ];
 
-const FEED_COLS = ["#F5D5C8","#DCCCC0","#E8D0BE","#F0E4D4","#D8BEB0","#EAC8B4",
-  "#D4D4F0","#BCC8E8","#D0E0F4","#E0E8F4","#C8C8E0","#B8C8DC"];
+const FEED_COLS = ["/thumbnail/vaseline.png",
+  "/thumbnail/teddy.png",
+  "/thumbnail/vaselinee.png",
+  "/thumbnail/MiniMe.png",
+  "/thumbnail/Maybelline.jpeg",
+  "/thumbnail/ToFill.png"];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // NAVIGATION UTILITY
@@ -1392,11 +1407,7 @@ background: "#F5D8CC",
                 link:"https://instagram.com/creativesbyvanreet",
                 stats:[{n:"Open",l:"For Collabs"},{n:"✨",l:"Daily Content"}],
                 cols:[0,1,2,3,4,5]},
-              {ic:"📌",n:"Pinterest",hd:"@creativesbyvanreet",
-                bg:"linear-gradient(135deg,#E60023,#B8001A)",
-                link:"#",
-                stats:[{n:"Beauty",l:"Lifestyle Boards"},{n:"Tech",l:"Inspiration"}],
-                cols:[6,7,8,9,10,11]},
+              
             ].map((p,pi) => (
               <Reveal key={p.n} delay={pi*90}>
                 <div className="sc-card">
@@ -1406,8 +1417,22 @@ background: "#F5D8CC",
                     <a href={p.link} target="_blank" rel="noopener noreferrer" style={{marginLeft:"auto",fontSize:".72rem",color:"var(--ac)",textDecoration:"none",fontWeight:500,cursor:"none"}}>Follow →</a>
                   </div>
                   <div className="feed-g">
-                    {p.cols.map((ci,fi) => <div key={fi} className="feed-c" style={{background:FEED_COLS[ci]}}><div className="f-ov">View</div></div>)}
-                  </div>
+                    {p.cols.map((ci, fi) => (
+  <div key={fi} className="feed-c">
+    <img
+      src={FEED_COLS[ci]}
+      alt="Instagram Post"
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover"
+      }}
+    />
+
+    <div className="f-ov">View</div>
+  </div>
+))}
+</div>
                   <div className="sc-st">
                     {p.stats.map(s => <div key={s.l} className="sc-sv"><div className="sc-sn">{s.n}</div><div className="sc-sl">{s.l}</div></div>)}
                   </div>
@@ -1452,32 +1477,101 @@ background: "#F5D8CC",
           </Reveal>
           <div className="ct-grid">
             <Reveal>
-              <form className="ct-form" onSubmit={e => e.preventDefault()}>
-                <div className="ct-2">
-                  <div className="ct-fg"><label className="ct-lb">First Name</label><input className="ct-in" placeholder="Your name" type="text" /></div>
-                  <div className="ct-fg"><label className="ct-lb">Last Name</label><input className="ct-in" placeholder="Last name" type="text" /></div>
-                </div>
-                <div className="ct-fg"><label className="ct-lb">Brand / Company</label><input className="ct-in" placeholder="Your Brand Name" type="text" /></div>
-                <div className="ct-fg"><label className="ct-lb">Email Address</label><input className="ct-in" placeholder="hello@yourbrand.com" type="email" /></div>
-                <div className="ct-fg">
-                  <label className="ct-lb">Content Type</label>
-                  <select className="ct-in">
-                    <option>UGC Video</option>
-                    <option>Product Photography</option>
-                    <option>Monthly Bundle</option>
-                    <option>Tech Demo</option>
-                    <option>Custom Collaboration</option>
-                  </select>
-                </div>
-                <div className="ct-fg">
-                  <label className="ct-lb">Tell Us About Your Brand</label>
-                  <textarea className="ct-in" placeholder="Share your vision, campaign goals, and what makes your brand unique…" />
-                </div>
-                <RipBtn className="btn-p" style={{width:"100%",justifyContent:"center",border:"none"}} onClick={() => {}}>
-                  Send Message ✨
-                </RipBtn>
-              </form>
-            </Reveal>
+              <form
+  className="ct-form"
+  onSubmit={(e) => {
+    e.preventDefault();
+
+    emailjs.sendForm(
+      "service_jw88s72",
+      "template_xilu7wx",
+      e.target,
+      "pmn-SWe_gaJKUK6Ct"
+    )
+    .then(() => {
+      alert("Message sent successfully!");
+      e.target.reset();
+    })
+    .catch((error) => {
+      alert("Failed to send message.");
+      console.error(error);
+    });
+  }}
+>
+               <div className="ct-2">
+  <div className="ct-fg">
+    <label className="ct-lb">First Name</label>
+    <input
+      className="ct-in"
+      placeholder="Your name"
+      type="text"
+      name="name"
+      required
+    />
+  </div>
+
+  <div className="ct-fg">
+    <label className="ct-lb">Last Name</label>
+    <input
+      className="ct-in"
+      placeholder="Last name"
+      type="text"
+    />
+  </div>
+</div>
+
+<div className="ct-fg">
+  <label className="ct-lb">Brand / Company</label>
+  <input
+    className="ct-in"
+    placeholder="Your Brand Name"
+    type="text"
+    name="title"
+    required
+  />
+</div>
+
+<div className="ct-fg">
+  <label className="ct-lb">Email Address</label>
+  <input
+    className="ct-in"
+    placeholder="hello@yourbrand.com"
+    type="email"
+    name="email"
+    required
+  />
+</div>
+
+<div className="ct-fg">
+  <label className="ct-lb">Content Type</label>
+  <select className="ct-in">
+    <option>UGC Video</option>
+    <option>Product Photography</option>
+    <option>Monthly Bundle</option>
+    <option>Tech Demo</option>
+    <option>Custom Collaboration</option>
+  </select>
+</div>
+
+<div className="ct-fg">
+  <label className="ct-lb">Tell Us About Your Brand</label>
+  <textarea
+    className="ct-in"
+    placeholder="Share your vision, campaign goals, and what makes your brand unique..."
+    name="message"
+    required
+  />
+</div>
+
+<RipBtn
+  type="submit"
+  className="btn-p"
+  style={{ width: "100%", justifyContent: "center", border: "none" }}
+>
+  Send Message ✨
+</RipBtn>
+</form>
+</Reveal>
 
             <Reveal delay={200}>
               <div className="ct-info">
